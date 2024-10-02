@@ -57,4 +57,3 @@ def remove(entity):
     '''Removes the model to its respective table'''
     db.session.delete(entity)
     db.session.commit()
-
