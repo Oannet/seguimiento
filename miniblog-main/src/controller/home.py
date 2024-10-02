@@ -82,20 +82,12 @@ def post(id_post):
 def like():
     '''Method to send a like when like button'''
     if request.method == 'POST':
-        body = request.json
-        if 'id' not in body or not isinstance(body['id'], int):
-            return jsonify({"error": "Invalid input"}), 400  # Validación de entrada
-        
+        body = request.json#['body'] <- for postman
         id_post = body['id']
         post = get_post_by_id(id_post)
-        
-        if post.user_id != g.user.id:
-            return jsonify({"error": "Unauthorized access"}), 403  # Validar permisos de usuario
-        
-        post.likes = post.likes + 1
+        post.likes = post.likes +1;
         add(post)
-    
-    return redirect(url_for('home.post', id_post=id_post))
+    return redirect(url_for('home.post', id_post = id_post))
 
 @home.route('/get-likes/<int:id_post>', methods=['GET'])
 @requires_login
